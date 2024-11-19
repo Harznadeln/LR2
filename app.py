@@ -1,11 +1,12 @@
-from flask import Flask, request
+import os
+from flask import Flask
 
 app = Flask(__name__)
 
 @app.route('/')
-def show_ip():
-    user_ip = request.remote_addr
-    return f"Ваша IP-адреса: {user_ip}"
+def home():
+    return "Ваша IP-адреса:"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
