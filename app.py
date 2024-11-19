@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def show_ip():
-    user_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    forwarded_for = request.headers.get('X-Forwarded-For', request.remote_addr)
+    user_ip = forwarded_for.split(',')[0].strip()  # Вибираємо першу IP-адресу
     return f"Ваша IP-адреса: {user_ip}"
 
 if __name__ == '__main__':
